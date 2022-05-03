@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  postgres:
+#    container_name: se-pg-postgres
+    build:
+      context: ./postgres
+    image: postgres:wip
+    command: >
+      -c ssl=on
+      -c ssl_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+      -c ssl_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+    ports:
+      - "5432:5432"
+    environment:
+      FOO: BAR
+      # set this to something on first volume run then remove the password
+      # POSTGRES_PASSWORD:
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+volumes:
+  postgres-data:
